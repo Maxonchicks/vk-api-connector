@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VkDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/test', 'VkDataController@test');
+
 Route::get('/', function () {
-    return view('welcome');
+    return "Hello, peoples";
 });

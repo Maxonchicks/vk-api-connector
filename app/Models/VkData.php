@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class VkData extends Model
 {
     use HasFactory;
+
+    protected $table = 'vk_data';
+    protected $guarded = [];
 }
