@@ -20,6 +20,15 @@ class VkAPI
 
         $aboutPost = $responsePost->json();
 
+        $responceById = Http::get(config('services.vk.url').'groups.getById',
+            [
+                'group_id' => $id_group,
+                'access_token' => config('services.vk.token'),
+                'v' => config('services.vk.version'),
+                'count' => 5,
+            ]);
+
+        $nameGroup = $responceById->json()['response']['groups'][0]['name'];
 
 
         foreach ($aboutPost['response']['items'] as $item)
@@ -39,7 +48,7 @@ class VkAPI
                 if (!VkData::where('post_published_dtm', date('Y-m-d H:i:s', $item['date']))->where('event_type', 'likes')->where('user_id', $like)->exists())
                     {
                         VkData::create([
-                            'group_name' => "Perviy MIETovskiy",
+                            'group_name' => $nameGroup,
                             'group_id' => '-'.$id_group,
                             'post_published_dtm' => date('Y-m-d H:i:s', $item['date']),
                             'event_type' => 'likes',
@@ -67,7 +76,7 @@ class VkAPI
                 if (!VkData::where('post_published_dtm', date('Y-m-d H:i:s', $item['date']))->where('event_type', 'comments')->where('user_id', $comments['from_id'])->exists())
                 {
                     VkData::create([
-                        'group_name' => "Perviy MIETovskiy",
+                        'group_name' => $nameGroup,
                         'group_id' => '-'.$id_group,
                         'post_published_dtm' => date('Y-m-d H:i:s', $item['date']),
                         'event_type' => 'comments',

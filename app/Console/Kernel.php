@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $vkParseGroups = explode(',', config('services.vk.parse_groups'));
         foreach ($vkParseGroups as $vk_id_group) {
-            $schedule->command('vk:parse '.$vk_id_group)->hourly();
+            $schedule->command('vk:parse '.$vk_id_group)->everyMinute();
         }
     }
 
