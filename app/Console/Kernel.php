@@ -16,6 +16,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $vkParseGroups = explode(',', config('services.vk.parse_groups'));
+        foreach ($vkParseGroups as $vk_id_group) {
+            $schedule->command('vk:parse '.$vk_id_group)->everyMinute();
+        }
     }
 
     /**
